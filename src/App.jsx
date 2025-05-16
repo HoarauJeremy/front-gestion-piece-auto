@@ -1,5 +1,5 @@
 import './App.css'
-import Fournisseur from "./Components/Fournisseur.jsx";
+import Fournisseur from "./Components/Fournisseur/index.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 function App() {
