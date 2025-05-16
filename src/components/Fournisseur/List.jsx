@@ -1,28 +1,21 @@
-import {useEffect, useState} from "react";
+import useFetchData from "../../utils/useFetchData";
 
 const List = () => {
-  const [data, setData] = useState(null);
+  const { data, loading, error } = useFetchData({
+    url: "fournisseurs",
+    embeddedKey: "fournisseurs"
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/fournisseur');
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []); // Empty dependency array ensures useEffect runs once after initial render
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <>
-      {data && data.map((item) => (
-        <li key={item.id}></li>
+    <ul>
+      {data.map((fournisseur, index) => (
+        <li key={index}>{fournisseur.nom}</li>
       ))}
-    </>
+    </ul>
   );
-}
+};
 
 export default List;
