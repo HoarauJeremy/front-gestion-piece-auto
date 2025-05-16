@@ -1,32 +1,73 @@
-import {useEffect, useState} from "react";
+import { useState, useEffect } from 'react';
+import { fournisseurService } from '../../services/fournisseurService';
+import './List.css';
 
 const List = () => {
-  const [data, setData] = useState(null);
+    const [fournisseurs, setFournisseurs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/fournisseur');
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+    useEffect(() => {
+        loadFournisseurs();
+    }, []);
+
+    const loadFournisseurs = async () => {
+        try {
+            const data = await fournisseurService.getAllFournisseurs();
+            setFournisseurs(data);
+            setError(null);
+        } catch (err) {
+            setError('Erreur lors du chargement des fournisseurs');
+            console.error('Erreur:', err);
+        } finally {
+            setLoading(false);
+        }
     };
-    fetchData();
-  }, []); // Empty dependency array ensures useEffect runs once after initial render
 
-  console.log(data)
+    const handleDelete = async (id) => {
+        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce fournisseur ?')) {
+            try {
+                await fournisseurService.deleteFournisseur(id);
+                loadFournisseurs();
+            } catch (err) {
+                setError('Erreur lors de la suppression du fournisseur');
+                console.error('Erreur:', err);
+            }
+        }
+    };
 
-  return (
-    <>
-      {/*{data && data._embedded.fournisseur.map((item) => (
-        <li key={item.id}></li>
-      ))}*/}
+    if (loading) return <div className="loading">Chargement...</div>;
+    if (error) return <div className="error">{error}</div>;
 
-      C MARCHE PAS
-    </>
-  );
-}
+    return (
+        <div className="fournisseurs-list">
+            <h2>Liste des Fournisseurs</h2>
+            {fournisseurs.length === 0 ? (
+                <p>Aucun fournisseur trouvé</p>
+            ) : (
+                <div className="fournisseurs-grid">
+                    {fournisseurs.map((fournisseur) => (
+                        <div key={fournisseur.id} className="fournisseur-card">
+                            <h3>{fournisseur.nom}</h3>
+                            <div className="fournisseur-info">
+                                <p><i className="fas fa-envelope"></i> {fournisseur.email}</p>
+                                <p><i className="fas fa-phone"></i> {fournisseur.telephone}</p>
+                                <p><i className="fas fa-map-marker-alt"></i> {fournisseur.adresse}</p>
+                            </div>
+                            <div className="fournisseur-actions">
+                                <button 
+                                    onClick={() => handleDelete(fournisseur.id)}
+                                    className="delete-btn"
+                                >
+                                    <i className="fas fa-trash"></i> Supprimer
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default List;

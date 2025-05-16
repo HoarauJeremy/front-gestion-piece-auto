@@ -1,0 +1,102 @@
+.fournisseurs-list {
+    padding: 2rem;
+}
+
+.fournisseurs-list h2 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.fournisseurs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.fournisseur-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fournisseur-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.fournisseur-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.fournisseur-info {
+    margin-bottom: 1.5rem;
+}
+
+.fournisseur-info p {
+    margin: 0.5rem 0;
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.fournisseur-info i {
+    color: #3498db;
+    width: 20px;
+}
+
+.fournisseur-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+.error {
+    text-align: center;
+    padding: 2rem;
+    color: #e74c3c;
+    font-size: 1.2rem;
+    background-color: #fde8e8;
+    border-radius: 8px;
+    margin: 1rem;
+}
+
+@media (max-width: 768px) {
+    .fournisseurs-list {
+        padding: 1rem;
+    }
+
+    .fournisseurs-grid {
+        grid-template-columns: 1fr;
+    }
+}
