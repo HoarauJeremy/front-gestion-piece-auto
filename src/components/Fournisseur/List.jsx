@@ -16,11 +16,15 @@ const List = () => {
     fetchData();
   }, []); // Empty dependency array ensures useEffect runs once after initial render
 
+  console.log(data)
+
   return (
     <>
-      {data && data.map((item) => (
+      {/*{data && data._embedded.fournisseur.map((item) => (
         <li key={item.id}></li>
-      ))}
+      ))}*/}
+
+      C MARCHE PAS
     </>
   );
 }
