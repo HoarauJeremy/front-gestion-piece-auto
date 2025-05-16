@@ -9,6 +9,8 @@ const List = () => {
   if (loading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
 
+  console.log(data)
+
   return (
     <ul>
       {data.map((fournisseur, index) => (

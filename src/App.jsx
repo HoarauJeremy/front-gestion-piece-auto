@@ -1,38 +1,16 @@
 import './App.css'
-import Fournisseur from "./Components/Fournisseur/index.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Accueil from "./components/Accueil/index.jsx";
+import Fournisseur from "./routes/Fournisseur.jsx";
 
 function App() {
 
   return (
     <>
-      <header>
-        <h1>Gestion Pièces Auto</h1>
-        <nav>
-          <ul>
-            <li>
-              <a href="/" title="Accueil">
-                <i className="fas fa-home"></i> Accueil
-              </a>
-            </li>
-            <li>
-              <a href="/fournisseur" title="Gestion des fournisseurs">
-                <i className="fas fa-truck"></i> Fournisseurs
-              </a>
-            </li>
-            <li>
-              <a href="/piece" title="Gestion des pièces">
-                <i className="fas fa-cogs"></i> Pièces
-              </a>
-            </li>
-            <li>
-              <a href="/stock" title="Gestion du stock">
-                <i className="fas fa-warehouse"></i> Stock
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Routes>
+        <Route path={"/"} element={<Accueil />} />
+        <Route path="/fournisseur" element={<Fournisseur />} />
+      </Routes>
     </>
   )
 }
